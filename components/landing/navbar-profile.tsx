@@ -4,10 +4,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { InternalLink } from "@/components/ui/internal-link";
 import {
-  clearSessionUser,
+  endSession,
+  getActiveSessionUser,
   getFullName,
   getInitials,
-  getSessionUser,
   type UserSession,
 } from "@/lib/auth-session";
 import { UserAvatarIcon } from "./icons";
@@ -20,7 +20,7 @@ export function NavbarProfile() {
   const [mounted, setMounted] = useState(false);
 
   const syncUser = useCallback(() => {
-    setUser(getSessionUser());
+    setUser(getActiveSessionUser());
   }, []);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export function NavbarProfile() {
   }, [menuOpen]);
 
   const handleLogout = () => {
-    clearSessionUser();
+    endSession();
     setUser(null);
     setMenuOpen(false);
     router.push("/");
