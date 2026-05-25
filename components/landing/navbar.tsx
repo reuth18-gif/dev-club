@@ -1,6 +1,7 @@
 import { InternalLink } from "@/components/ui/internal-link";
 import { navLinks } from "@/lib/matac-data";
-import { BellIcon, SparkleIcon, SunIcon, UserAvatarIcon } from "./icons";
+import { BellIcon, SparkleIcon, SunIcon } from "./icons";
+import { NavbarProfile } from "./navbar-profile";
 
 export function Navbar() {
   return (
@@ -44,13 +45,7 @@ export function Navbar() {
           >
             <BellIcon className="h-5 w-5" />
           </button>
-          <InternalLink
-            href="/login"
-            aria-label="Sign in to your account"
-            className="group flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 border-border-soft bg-gradient-to-br from-[#e8f0e6] to-cream-card shadow-sm ring-1 ring-white/80 transition-all duration-300 hover:scale-105 hover:border-forest/25 hover:opacity-90 hover:shadow-md"
-          >
-            <UserAvatarIcon className="h-5 w-5 text-forest/60 transition-colors duration-300 group-hover:text-forest" />
-          </InternalLink>
+          <NavbarProfile />
         </div>
       </div>
     </header>

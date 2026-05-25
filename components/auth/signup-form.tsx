@@ -1,12 +1,15 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { InternalLink } from "@/components/ui/internal-link";
+import { setSessionUser } from "@/lib/auth-session";
 
 const inputClassName =
   "mt-1.5 w-full rounded-xl border border-border-soft bg-cream px-4 py-2.5 text-sm text-forest outline-none transition-all duration-300 placeholder:text-olive-light focus:border-forest/40 focus:ring-2 focus:ring-forest/10";
 
 export function SignupForm() {
+  const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -14,19 +17,21 @@ export function SignupForm() {
     confirmPassword.length > 0 && password !== confirmPassword;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    if (password !== confirmPassword) {
-      e.preventDefault();
-    }
+    e.preventDefault();
+    if (password !== confirmPassword) return;
+
+    const formData = new FormData(e.currentTarget);
+    const firstName = (formData.get("firstName") as string).trim();
+    const lastName = (formData.get("lastName") as string).trim();
+    const email = (formData.get("email") as string).trim();
+
+    setSessionUser({ firstName, lastName, email });
+    router.push("/");
   };
 
   return (
     <>
-      <form
-        className="mt-8 space-y-5"
-        action="#"
-        method="post"
-        onSubmit={handleSubmit}
-      >
+      <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
         <div>
           <label
             htmlFor="firstName"
