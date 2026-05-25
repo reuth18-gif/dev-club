@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { DM_Serif_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const dmSerif = DM_Serif_Display({
+  variable: "--font-dm-serif",
   subsets: ["latin"],
+  weight: "400",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "RoleTailor — Match your CV to the roles that fit",
+  title: "matac.ai — Smarter job search. Better matches.",
   description:
-    "Upload your CV, compare match scores to job descriptions, tailor your resume with AI, and track every application in one place.",
+    "Your AI career assistant. Find roles that fit, tailor your CV, and track every application in one place.",
 };
 
 export default function RootLayout({
@@ -26,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
+      className={`${dmSerif.variable} ${plusJakarta.variable} h-full scroll-smooth antialiased`}
     >
       <body className="flex min-h-full flex-col">{children}</body>
     </html>
