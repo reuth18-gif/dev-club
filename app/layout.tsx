@@ -15,7 +15,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "matac.ai — Smarter job search. Better matches.",
+  title: "match.ai — Smarter job search. Better matches.",
   description:
     "Your AI career assistant. Find roles that fit, tailor your CV, and track every application in one place.",
 };

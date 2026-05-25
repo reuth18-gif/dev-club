@@ -72,7 +72,7 @@ export function CvBuilderBanner() {
               you apply to.
             </p>
             <div className="mt-8">
-              <CtaButton href="#cv-builder">Build My CV &gt;</CtaButton>
+              <CtaButton href="/cv-builder">Build My CV &gt;</CtaButton>
             </div>
           </div>
         </div>

@@ -133,6 +133,41 @@ export const jobs = [
   },
 ] as const;
 
+export const savedJobsForCv = [
+  {
+    id: "figma-pd",
+    role: "Product Designer",
+    company: "Figma",
+    location: "Remote",
+    logoBg: "#1e1e1e",
+    logoLabel: "F",
+  },
+  {
+    id: "notion-ux",
+    role: "UX Researcher",
+    company: "Notion",
+    location: "Remote",
+    logoBg: "#000000",
+    logoLabel: "N",
+  },
+  {
+    id: "airbnb-mkt",
+    role: "Marketing Manager",
+    company: "Airbnb",
+    location: "Hybrid",
+    logoBg: "#ff5a5f",
+    logoLabel: "A",
+  },
+  {
+    id: "stripe-fe",
+    role: "Frontend Engineer",
+    company: "Stripe",
+    location: "Remote",
+    logoBg: "#635bff",
+    logoLabel: "S",
+  },
+] as const;
+
 export const footerLinks = {
   Product: ["Dashboard", "Jobs", "CV Builder", "Saved Jobs"],
   Company: ["About Us", "Careers", "Contact"],

@@ -117,7 +117,7 @@ export function Hero() {
             Better matches.
           </h1>
           <p className="mt-6 max-w-md text-base leading-relaxed text-olive lg:text-lg">
-            matac.ai uses AI to match your CV to the right roles, tailor your
+            match.ai uses AI to match your CV to the right roles, tailor your
             resume for each application, and keep every opportunity organized in
             one dashboard.
           </p>
