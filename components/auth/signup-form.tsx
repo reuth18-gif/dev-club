@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { PasswordInput } from "@/components/auth/password-input";
 import { InternalLink } from "@/components/ui/internal-link";
-import { setSessionUser } from "@/lib/auth-session";
+import { setRegisteredUser } from "@/lib/auth-session";
 
 const inputClassName =
   "mt-1.5 w-full rounded-xl border border-border-soft bg-cream px-4 py-2.5 text-sm text-forest outline-none transition-all duration-300 placeholder:text-olive-light focus:border-forest/40 focus:ring-2 focus:ring-forest/10";
@@ -29,7 +29,7 @@ export function SignupForm() {
     const lastName = (formData.get("lastName") as string).trim();
     const email = (formData.get("email") as string).trim();
 
-    setSessionUser({ firstName, lastName, email });
+    setRegisteredUser({ firstName, lastName, email, password });
     router.push("/");
   };
 

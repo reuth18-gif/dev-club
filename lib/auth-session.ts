@@ -1,11 +1,20 @@
-export const AUTH_STORAGE_KEY = "matchai_user";
+export const REGISTERED_USER_KEY = "registeredUser";
 export const LOGGED_IN_KEY = "isLoggedIn";
+
+export type RegisteredUser = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+};
 
 export type UserSession = {
   firstName: string;
   lastName: string;
   email: string;
 };
+
+export type LoginValidationResult = "success" | "wrong-password" | "not-registered";
 
 export function getFullName(user: UserSession): string {
   return `${user.firstName} ${user.lastName}`.trim();
@@ -28,17 +37,32 @@ export function setLoggedIn(): void {
   window.dispatchEvent(new Event("auth-change"));
 }
 
-export function getSessionUser(): UserSession | null {
+export function getRegisteredUser(): RegisteredUser | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = localStorage.getItem(AUTH_STORAGE_KEY);
+    const raw = localStorage.getItem(REGISTERED_USER_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as UserSession;
-    if (!parsed.firstName || !parsed.email) return null;
+    const parsed = JSON.parse(raw) as RegisteredUser;
+    if (!parsed.firstName || !parsed.email || !parsed.password) return null;
     return parsed;
   } catch {
     return null;
   }
+}
+
+export function setRegisteredUser(user: RegisteredUser): void {
+  localStorage.setItem(REGISTERED_USER_KEY, JSON.stringify(user));
+  setLoggedIn();
+}
+
+export function getSessionUser(): UserSession | null {
+  const registered = getRegisteredUser();
+  if (!registered) return null;
+  return {
+    firstName: registered.firstName,
+    lastName: registered.lastName,
+    email: registered.email,
+  };
 }
 
 /** Returns user data only when an active session exists. */
@@ -47,25 +71,23 @@ export function getActiveSessionUser(): UserSession | null {
   return getSessionUser();
 }
 
-export function setSessionUser(user: UserSession): void {
-  localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
-  setLoggedIn();
-}
-
-/** Ends the active session but keeps stored user data for re-login. */
-export function endSession(): void {
-  localStorage.removeItem(LOGGED_IN_KEY);
-  window.dispatchEvent(new Event("auth-change"));
-}
-
 export function clearSessionUser(): void {
-  localStorage.removeItem(AUTH_STORAGE_KEY);
+  localStorage.removeItem(REGISTERED_USER_KEY);
   localStorage.removeItem(LOGGED_IN_KEY);
   window.dispatchEvent(new Event("auth-change"));
 }
 
-export function validateLoginEmail(email: string): boolean {
-  const stored = getSessionUser();
-  if (!stored) return false;
-  return stored.email.trim().toLowerCase() === email.trim().toLowerCase();
+export function validateLogin(
+  email: string,
+  password: string
+): LoginValidationResult {
+  const stored = getRegisteredUser();
+  if (!stored) return "not-registered";
+
+  const normalizedEmail = email.trim().toLowerCase();
+  const storedEmail = stored.email.trim().toLowerCase();
+
+  if (storedEmail !== normalizedEmail) return "not-registered";
+  if (stored.password !== password) return "wrong-password";
+  return "success";
 }

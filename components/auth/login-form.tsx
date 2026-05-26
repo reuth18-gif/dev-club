@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { PasswordInput } from "@/components/auth/password-input";
 import { InternalLink } from "@/components/ui/internal-link";
-import { setLoggedIn, validateLoginEmail } from "@/lib/auth-session";
+import { setLoggedIn, validateLogin } from "@/lib/auth-session";
 
 const inputClassName =
   "mt-1.5 w-full rounded-xl border border-border-soft bg-cream px-4 py-2.5 text-sm text-forest outline-none transition-all duration-300 placeholder:text-olive-light focus:border-forest/40 focus:ring-2 focus:ring-forest/10";
@@ -22,9 +22,17 @@ export function LoginForm() {
 
     const formData = new FormData(e.currentTarget);
     const email = (formData.get("email") as string).trim();
+    const password = formData.get("password") as string;
 
-    if (!validateLoginEmail(email)) {
-      setError("Invalid email or password");
+    const result = validateLogin(email, password);
+
+    if (result === "not-registered") {
+      setError("This email is not registered. Please sign up first.");
+      return;
+    }
+
+    if (result === "wrong-password") {
+      setError("Incorrect password");
       return;
     }
 
