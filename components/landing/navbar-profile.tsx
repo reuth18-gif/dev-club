@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { InternalLink } from "@/components/ui/internal-link";
 import {
-  endSession,
+  clearSessionUser,
   getActiveSessionUser,
   getFullName,
   getInitials,
@@ -46,10 +46,10 @@ export function NavbarProfile() {
   }, [menuOpen]);
 
   const handleLogout = () => {
-    endSession();
+    clearSessionUser();
     setUser(null);
     setMenuOpen(false);
-    router.push("/");
+    router.push("/login");
   };
 
   if (!mounted) {

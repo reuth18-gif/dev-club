@@ -2,11 +2,15 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { PasswordInput } from "@/components/auth/password-input";
 import { InternalLink } from "@/components/ui/internal-link";
 import { setSessionUser } from "@/lib/auth-session";
 
 const inputClassName =
   "mt-1.5 w-full rounded-xl border border-border-soft bg-cream px-4 py-2.5 text-sm text-forest outline-none transition-all duration-300 placeholder:text-olive-light focus:border-forest/40 focus:ring-2 focus:ring-forest/10";
+
+const passwordInputClassName =
+  "w-full rounded-xl border border-border-soft bg-cream px-4 py-2.5 text-sm text-forest outline-none transition-all duration-300 placeholder:text-olive-light focus:border-forest/40 focus:ring-2 focus:ring-forest/10";
 
 export function SignupForm() {
   const router = useRouter();
@@ -90,16 +94,15 @@ export function SignupForm() {
           >
             Password
           </label>
-          <input
+          <PasswordInput
             id="password"
             name="password"
-            type="password"
             autoComplete="new-password"
             required
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className={inputClassName}
+            className={passwordInputClassName}
           />
         </div>
         <div>
@@ -109,10 +112,9 @@ export function SignupForm() {
           >
             Confirm Password
           </label>
-          <input
+          <PasswordInput
             id="confirmPassword"
             name="confirmPassword"
-            type="password"
             autoComplete="new-password"
             required
             placeholder="••••••••"
@@ -120,7 +122,7 @@ export function SignupForm() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             aria-invalid={showMismatch}
             aria-describedby={showMismatch ? "confirm-password-error" : undefined}
-            className={`${inputClassName} ${
+            className={`${passwordInputClassName} ${
               showMismatch
                 ? "border-[var(--status-rejected-text)]/40 focus:border-[var(--status-rejected-text)]/50 focus:ring-[var(--status-rejected)]/30"
                 : ""
